@@ -5,11 +5,17 @@
  * @brief Embedded Light Intensity Monitoring using LDR
  * @author Piyush Choudhary
  * @date 2026-02-20
+ *
+ * @details
+ * Reads analog brightness data from an LDR sensor,
+ * prints raw ADC values, and performs threshold-based
+ * brightness classification (Bright / Dark).
  */
 
 #define LDR_PIN A0
 
 int ldrValue = 0;
+const int LIGHT_THRESHOLD = 500;  // Adjust based on calibration
 
 void setup() {
 
@@ -19,12 +25,20 @@ void setup() {
 
 void loop() {
 
-    // STEP 4: Read analog value from LDR
+    // Read analog value
     ldrValue = analogRead(LDR_PIN);
 
-    // STEP 4: Print raw ADC value
+    // Print raw ADC value
     Serial.print("Raw ADC Value: ");
     Serial.println(ldrValue);
 
-    delay(500);
+    // Apply threshold logic
+    if (ldrValue > LIGHT_THRESHOLD) {
+        Serial.println("Status: Bright Environment");
+    } 
+    else {
+        Serial.println("Status: Dark Environment");
+    }
+
+    delay(1000);  // 1-second delay
 }
