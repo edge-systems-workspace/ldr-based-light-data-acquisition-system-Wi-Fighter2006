@@ -14,10 +14,17 @@ int ldrValue = 0;
 void setup() {
 
     Serial.begin(9600);
-
-    // STEP 3: Print initialization message
     Serial.println("=== LDR Light Intensity Monitoring System Initialized ===");
 }
 
 void loop() {
+
+    // STEP 4: Read analog value from LDR
+    ldrValue = analogRead(LDR_PIN);
+
+    // STEP 4: Print raw ADC value
+    Serial.print("Raw ADC Value: ");
+    Serial.println(ldrValue);
+
+    delay(500);
 }
